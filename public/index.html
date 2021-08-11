@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Styling Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Font Packages -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <!-- CSS Styling -->
+  <link rel="stylesheet" href="./css/styles.css">
+  
+  <title>Free Market</title>
+</head>
+<body>
+  <div class="container-fluid">
+
+    <!-- NavBar -->
+    <div class="navbar-fixed">
+      <nav class="blue darken-1">
+        <!-- SideNAv -->
+        <a data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+        <!-- TEST sidenav-fixed invesible-top -->
+        <ul id="slide-out" class="sidenav header center invisible-top">
+          <li>
+            <div class="row blue darken-1 center hide-on-med-and-up">
+              <a href="index" class="valign-wrapper sideHead"><img src="./freeMarketLogo.png" class="logo"></a>
+            </div>
+          </li>
+          <li class="collection-item filter waves-effect waves-orange"
+            style="color: black; font-size: 25px; border-bottom: 1px solid black;">Categories:</li>
+  
+          <li class="collection-item filter waves-effect waves-orange" id="automotive">Automotive</li>
+          <li class="collection-item filter waves-effect waves-orange" id="household">Household</li>
+          <li class="collection-item filter waves-effect waves-orange" id="decor">Decor</li>
+          <li class="collection-item filter waves-effect waves-orange" id="apparel">Apparel</li>
+          <li class="collection-item filter waves-effect waves-orange" id="accessories">Accessories</li>
+          <li class="collection-item filter waves-effect waves-orange" id="technology">Technology</li>
+          <li class="collection-item filter waves-effect waves-orange" id="pet">Pet</li>
+          <li class="collection-item filter waves-effect waves-orange" id="random">Random</li>
+          <li class="collection-item">
+            <div class="input-field white" style="display: flex; justify-content: center;">
+              <input type="search" id="sidebarSearch" placeholder="Search Listings"
+                style="width: 200px; height: 30px; padding-top: 10px;">
+              <i class="material-icons" style="color: #1e88e5;">search</i>
+            </div>
+          </li>
+        </ul>
+
+        <!-- MainNav -->
+        <div class="navContain">
+          <a href="./index" class="brand-logo center"><img src="./freeMarketLogo.png" class="logo">
+          </a>
+          <ul class="right" id="navListMain">
+            <li class="search">
+              <div class="input-field hide-on-small-only">
+                <input type="search" id="navbarSearch" placeholder="Search Listings" class="blue darken-1"
+                  style="margin-left: 2rem; width: 150px; height: 30px; padding-top: 10px; margin-top: 4px;">
+                <label class="label-icon" for="search" style="left: 0rem;"><i class="material-icons">search</i></label>
+              </div>
+            </li>
+            <li>
+              <a class='dropdown-trigger hide-on-small-only' href='#' data-target='navList'><i class="material-icons"
+                  style="color: white; margin-top: 3px;">arrow_drop_down</i></a>
+              <ul id='navList' class='dropdown-content'>
+                <!-- content varies on user permissions -->
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="spiel">
+      <p>Some things don't need to be tossed,</p>
+      <p>they just need new owners.</p>
+      <!-- <p>From cars to lamps find something that speaks to you and thrift shop online with Free Market.</p> -->
+    </header>
+
+    <!-- Listings -->
+    <div class="container listing">
+      <div class="col s9 l9">
+        <div class="row" id="listings">
+          <h3>Recent Listings</h3>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Structure -->
+    <div id="cardModal" class="modal itemModal">
+      <div class="modal-content" id="listFull"></div>
+      <div class="modal-footer"></div>
+    </div>
+    
+    
+    <div id="lockedModal" class="modal itemModal">
+      <div class="modal-content" id="userLocked"></div>
+      <div class="modal-footer"></div>
+    </div>
+
+
+    <!-- footer -->
+    <footer class="footer-copyright">
+      <p id="footerContent"> © Developed by Sean Nguyen</p>
+    </footer>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+    })
+  </script>
+  <script src="js/loadUtil.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+    // opens modal
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     var elems = document.querySelectorAll('.modal');
+    //     var instances = M.Modal.init(elems, {});
+    //     console.log(instances)
+    //   })
+
+    // opens drop down on left
+    $('.dropdown-trigger').dropdown();
+  </script>
+
+
+
+</body>
+</html>
