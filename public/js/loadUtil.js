@@ -1,7 +1,11 @@
-
+const getListing = (id) => {
+  axios.get(`/api/listings/id/${id}`)
+    .then(({ data: listing }) => {
+      console.log(listing)
+    })
+}
 
 const getListings = () => {
-  console.log('hit')
   axios.get('/api/listings')
     .then(({ data: listings }) => {
       listings.forEach(listing => {
@@ -9,13 +13,13 @@ const getListings = () => {
         const listingElem = document.createElement('div')
         listingElem.className = 'col s12 m4 l3 xl3'
         listingElem.innerHTML = `
-        <div class="card hoverable listings modal-trigger" id="cardItem" data-target="modal1" data-id=${listing.id}>
-        <div class="card-image" style="background-image: url(${listing.image})"></div>
-        <div class="titleBox valign-wrapper">
+          <div class="card hoverable listings modal-trigger" id="cardItem" data-target="modal1" data-id=${listing.id}>
+            <div class="card-image" style="background-image: url(${listing.image})"></div>
+            <div class="titleBox valign-wrapper">
               <h3 class="card-title center cardTitle">${listing.title}</h3>
-              </div>
-              </div>
-              `
+            </div>
+          </div>
+        `
         document.getElementById('listings').append(listingElem)
       })
     })
@@ -23,12 +27,10 @@ const getListings = () => {
 }
 
 const status = () => {
-  console.log('hit')
   if (localStorage.getItem('token')) {
-    // logged in user
     // main nav
     let signOut = document.createElement('li')
-    signOut.innerHTML = `<a class="hide-on-small-only signOut" >Log Out</a>`
+    signOut.innerHTML = `<a class="hide-on-small-only signOut">Log Out</a>`
 
     let myProf = document.createElement('li')
     myProf.innerHTML = `<a class="hide-on-small-only" href="/myProfile">My Profile</a>`
