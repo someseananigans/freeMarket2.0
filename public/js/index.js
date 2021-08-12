@@ -33,7 +33,7 @@ document.getElementById('navbarSearch').addEventListener('input', event => {
             <div class="card hoverable listings modal-trigger" id="cardItem" data-target="cardModal" data-id=${listing.id}>
               <div class="card-image" style="background-image: url(${listing.image})"></div>
               <div class="titleBox valign-wrapper">
-                <h3 class="card-title center cardTitle">${listing.title}</h3>
+                <h3 class="center cardTitle">${listing.title}</h3>
               </div>
             </div>
           `
@@ -58,7 +58,7 @@ document.getElementById('sidebarSearch').addEventListener('input', event => {
             <div class="card hoverable listings modal-trigger" id="cardItem" data-target="cardModal" data-id=${listing.id}>
               <div class="card-image" style="background-image: url(${listing.image})"></div>
               <div class="titleBox valign-wrapper">
-                <h3 class="card-title center cardTitle">${listing.title}</h3>
+                <h3 class="center cardTitle">${listing.title}</h3>
               </div>
             </div>
           `
@@ -89,7 +89,7 @@ document.addEventListener('click', event => {
             <div class="card hoverable listings modal-trigger" id="cardItem" data-target="cardModal" data-id=${listing.id}>
               <div class="card-image" style="background-image: url(${listing.image})"></div>
               <div class="titleBox valign-wrapper">
-                <h3 class="card-title center cardTitle">${listing.title}</h3>
+                <h3 class="center cardTitle">${listing.title}</h3>
               </div>
             </div>
           `
@@ -120,36 +120,41 @@ document.addEventListener('click', event => {
     id = event.target.dataset.id
     console.log(id)
   }
-  // modal for logic
+
+
   if (id !== '') {
+    // send to new page (fuck modals)
 
-    if (localStorage.getItem('token')) {
-      console.log(id)
-      axios.get(`/api/listings/id/${id}`)
-        .then(({ data: listing }) => {
-          document.getElementById('listFull').innerHTML = `
-        <div class="row center">
-        <p id="listImage"><img src="${listing.image}" height="175px" width="auto"></p>
-        </div>
-          <div class="row">
-          <h4 id="listTitle">${listing.title}</h4>
-          </div>
-          <div class="row">
-          <p id="listDesc">${listing.description}</p>
-          </div>
-          <a href="mailto:${listing.User.email}">
-          <button class="btn modal-close waves-effect yellow darken-3" type="email" name="action">
-          <i class="material-icons right">email</i>
-          </button>
-          </a>
-          `
+    let url = `./listing.html?id=${encodeURIComponent(id)}`
+    document.location.href = url
 
-          instance.open();
-        })
-        .catch(err => console.log(err))
-    } else {
-      instance2.open()
-    }
+    // if (localStorage.getItem('token')) {
+
+    //   axios.get(`/api/listings/id/${id}`)
+    //     .then(({ data: listing }) => {
+    //       document.getElementById('listFull').innerHTML = `
+    //     <div class="row center">
+    //     <p id="listImage"><img src="${listing.image}" height="175px" width="auto"></p>
+    //     </div>
+    //       <div class="row">
+    //       <h4 id="listTitle">${listing.title}</h4>
+    //       </div>
+    //       <div class="row">
+    //       <p id="listDesc">${listing.description}</p>
+    //       </div>
+    //       <a href="mailto:${listing.User.email}">
+    //       <button class="btn modal-close waves-effect yellow darken-3" type="email" name="action">
+    //       <i class="material-icons right">email</i>
+    //       </button>
+    //       </a>
+    //       `
+
+    //       instance.open();
+    //     })
+    //     .catch(err => console.log(err))
+    // } else {
+    //   instance2.open()
+    // }
   }
 
   // if (localStorage.getItem('token')) {
