@@ -79,85 +79,10 @@ body, .container {
 
 /* Listings End */
 
-/* Main Nav Start */
-
-.logo {
-  margin-top: 5px;
-  width: 136px;
-  height: auto;
-}
-
-/* Main Nav End */
-
-/* Side Nav Start */
-
-.dropdown-content {
-  top: 65px !important;
-  width: 140px !important;
-  text-align-last: center !important;
-}
-
-.dropdown-content li>a, .dropdown-content li>span nav .input-field {
-  color: #1e88e5;
-}
-
-nav {
-  z-index: 999;
-}
-
-.sideHead {
-  height: 100px;
-  justify-content: center;
-}
-
-.input-field input[type=search]~.material-icons {
-  color: #4ea3ee;
-}
-
-.filter {
-  /* height: 40px; */
-  width: 85%;
-  color: #1e88e5;
-  font-size: 18px;
-  /* margin-top: 10px; */
-  text-align: center;
-  /* vertical-align: middle; */
-}
-
-.sidenav .row {
-  margin-bottom: 0;
-}
-
-.navbar-fixed {
-  z-index: 999;
-}
-
-/* Side Nav End */
-
-/* Footer Start */
-
-.footer-copyright {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: rgb(223, 223, 223);
-  display: flex;
-  justify-content: center;
-  height: 50px;
-}
-
-#footerContent {
-  /* background-color: rgb(243, 239, 239); */
-  color: rgb(153, 150, 150);
-  font-family: ;
-  font-weight: 100;
-}
-
-/* Footer End */
 
 /* Media Queries */
 
-@media (max-width: 992px) {
+@media only screen and (max-width: 992px) {
   .listing {
     width: 575px;
   }
@@ -166,7 +91,7 @@ nav {
   }
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   .listing {
     width: 90%;
   }
@@ -174,7 +99,7 @@ nav {
     width: 300px;
   }
   .logo {
-    width: 120px;
+    width: 120px !important;
   }
   .spiel p {
     font-size: 1.75rem;
