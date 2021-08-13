@@ -1,13 +1,23 @@
+.container-fluid {
+  min-height: 100vh;
+  position: relative;
+}
+
 .connect {
   margin-top: 100px;
+  margin-bottom: 100px;
   width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
+.btn {
+  margin-top: 10px;
+}
+
 #invalid {
   margin-top: -20px;
-  margin-bottom: 30px
+  margin-bottom: 20px
 }
 
 .info {
@@ -25,13 +35,9 @@ h5 {
 
 .headSpace {
   /* background-color: lightcoral; */
-  padding: 10px;
-  margin-bottom: 30px;
-}
-
-.headSpace h1 {
   font-weight: 100;
-  margin: 0;
+  padding: 10px;
+  margin-top: 20px;
   color: rgb(4, 131, 110);
 }
 
