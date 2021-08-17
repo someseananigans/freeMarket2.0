@@ -29,7 +29,8 @@ router.get('/listings/:position', (req, res) => {
   })
     .then(listings => {
       let position = req.params.position
-      let limit = 10
+      let limit = 5
+      listings.sort((a, b) => a.createdAt - b.createdAt)
       let splitListings = listings.slice((position - 1) * limit, position * limit)
       res.json({
         total: listings.length,
@@ -38,7 +39,7 @@ router.get('/listings/:position', (req, res) => {
         listings: splitListings
       })
     })
-    .catch(err => res.json(listings))
+    .catch(err => res.json(err))
 })
 
 // ------> All listings under user can be grabbed via the user data itself <------
@@ -60,7 +61,7 @@ router.get('/listings/search/:title', (req, res) => {
           searchResults.push(listing[i])
         }
       }
-      searchResults.sort((a, b) => (a.createdAt - b.createdAt))
+      searchResults.sort((a, b) => a.title.localeCompare(b.title))
       res.json(searchResults)
     })
     .catch(listing => res.json(err))
@@ -124,7 +125,7 @@ router.post('/listings/', passport.authenticate('jwt'), (req, res) => {
     description: req.body.description,
     image: req.body.image,
     category: req.body.category,
-    uid: req.user.id
+    uid: req.user.id,
   })
     .then(listing => res.json(listing))
     .catch(err => res.json(err))
