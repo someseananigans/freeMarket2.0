@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- materialize styling -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- materialize icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- font package -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <!-- styling -->
+  <link href="./css/navbar.css" rel="stylesheet">
+  <link href="./css/profile.css" rel="stylesheet">
+  <style>
+    .info {
+      background: lightblue;
+      height: 140px;
+    }
+
+    .sidebar {
+      background: lightcoral;
+      height: 500px
+    }
+
+    h5 {
+      color: white;
+    }
+  </style>
+
+  <title>FreeMarket</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <nav class="blue darken-1">
+      <a data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+      <ul id="slide-out" class="sidenav header center invesible-top">
+        <div class="row blue darken-1 center hide-on-med-and-up">
+          <a href="index" class="valign-wrapper sideHead"><img src="./freeMarketLogo.png" class="logo"></a>
+        </div>
+        <div class="navContain">
+          <li class="collection-item filter waves-effect waves-orange" id="editMyProfile">My Profile</li>
+          <li class="collection-item filter waves-effect waves-orange" id="createListing">Create a Listing</li>
+          <li class="collection-item filter waves-effect waves-orange" id="myListings">My Listings</li>
+        </div>
+      </ul>
+      <div class="sideNavCont">
+        <a href="./index" class="brand-logo center"><img src="./freeMarketLogo.png" class="logo">
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="./index">Home Page</a></li>
+          <li><a href="./index" id="signOut">Log Out</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container" id='profileTools'>
+      <div class="col" id="items">
+        <h1 style="text-align: center; font-weight: 100; color: #1e88e5;">My Profile</h1>
+        <div class="card-panel">
+          <div class="row">
+            <div class="itemName input-field col s12">
+              <i class="material-icons prefix">account_circle</i>
+              <input id="nameU" type="text" class="validate" disabled>
+              <label id="activeN" for="nameU">Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="itemName input-field col s12">
+              <i class="material-icons prefix">email</i>
+              <input id="emailU" type="email" class="validate" disabled>
+              <label id="activeE" for="emailU">Email</label>
+              <div id="invalidEmail"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="itemName input-field col s12">
+              <i class="material-icons prefix">phone</i>
+              <input id="phoneU" type="tel" class="validate" disabled>
+              <label id="activeP" for="phoneU">Phone Number</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="itemName input-field col s12">
+              <i class="material-icons prefix">create</i>
+              <input id="usernameU" type="text" class="validate" disabled>
+              <label id="activeU" for="usernameU">Username</label>
+              <div id="invalidUser"></div>
+            </div>
+          </div>
+          <!-- <button class="waves-effect waves-light btn yellow darken-3" type="submit" name="action" id="updateProfile">Save
+            <i class="material-icons right">send</i>
+          </button> -->
+          <button class="waves-effect yellow darken-3 btn" type="submit" name="action" id="editBtn">Edit<i
+              class="material-icons right">edit</i></button>
+        </div>
+      </div>
+    </div>
+
+
+    <footer class="footer-copyright">
+      <p id="footerContent"> © Created by Sean Nguyen, Joseph Nielsen, and Kyle Ohlwiler</p>
+    </footer>
+  </div>
+
+  <!--  jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- axios package -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- materialize styling library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- cleave package -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.5.10/cleave.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.5.10/addons/cleave-phone.us.js"></script>
+  <!-- sideNav opening -->
+  <script>
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+    })
+  </script>
+
+  <script src="./js/myProfile.js"></script>
+</body>
+
+</html>
