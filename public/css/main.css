@@ -4,6 +4,10 @@ body, .container {
   font-weight: 900;
 }
 
+body {
+  overflow: auto !important
+}
+
 .container-fluid {
   min-height: 100vh;
   position: relative;
@@ -46,6 +50,15 @@ body, .container {
   margin-right: auto;
 }
 
+@keyframes load {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .card {
   height: 250px;
   width: 200px;
@@ -54,6 +67,9 @@ body, .container {
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
   -o-border-radius: 0px;
+  opacity: 1;
+  animation: 1.5s load;
+  -webkit-animation: 1.5s load;
 }
 
 .card-image {
@@ -63,11 +79,10 @@ body, .container {
   background-position: center;
 }
 
-.cardTitle {
-  color: #1e88e5;
+.card-title {
+  color: #1e88e5 !important;
   margin: 0;
 }
-
 
 .titleBox {
   height: 75px;
@@ -77,8 +92,75 @@ body, .container {
   padding-right: 7px;
 }
 
-/* Listings End */
+.spaceHead {
+  display: flex;
+  justify-content: space-between;
+}
 
+.headLine {
+  margin-top: 15px;
+}
+
+.pagination {
+  justify-content: space-between;
+  animation: 1.5s load;
+  -webkit-animation: 1.5s load;
+  display: flex;
+  align-items: center;
+}
+
+.pageInput {
+  width: 75px !important;
+  text-align: center;
+}
+
+.disabled {
+  color: gray;
+}
+
+.pageDrop {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+  width: 100%;
+}
+
+.btnBox {
+  display: flex;
+}
+
+.modal {
+  height: 150px;
+  width: 215px;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.modalBtn {
+  width: 75px;
+  height: 33px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: #1E88E5;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  font-weight: 700;
+  color: white;
+}
+
+.gray {
+  background-color: gray;
+}
+
+.category {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Listings End */
 
 /* Media Queries */
 
@@ -119,4 +201,22 @@ body, .container {
   #profileTools {
     width: 75% !important;
   }
+}
+
+/* scroll bar updates */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
