@@ -83,14 +83,15 @@
     </header>
 
     <!-- Listings -->
+    <!-- Space 1 -->
     <div class="container listing">
       <div class="col s9 l9">
-        <div class="row" id="listings">
-          <h3>Recent Listings</h3>
+        <div class="spaceHead" id="spaceOne">
+          <h3 class="headLine">Recent Listings</h3>
+          <ul class="pagination" id="pages"></ul>
         </div>
-        <ul class="pagination" id="pages">
-          <li class="disabled"><i class="material-icons">chevron_left</i></li>
-        </ul>
+        <div class="row" id="listings">
+        </div>
       </div>
     </div>
   
@@ -105,6 +106,8 @@
       <div class="modal-content" id="userLocked"></div>
       <div class="modal-footer"></div>
     </div>
+
+    <div id="pageModal" class="modal itemModal"></div>
 
 
     <!-- footer -->
