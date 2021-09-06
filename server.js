@@ -22,10 +22,11 @@ passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-passport.use(new JWTStrategy({
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SECRET
-}, ({ id }, cb) => User.findOne({ where: { id }, include: [Listing] })
+let opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = process.env.SECRET
+
+passport.use(new JWTStrategy(opts, (jwt_payload, cb) => User.findOne({ id: jwt_payload, include: [Listing] })
   .then(user => cb(null, user))
   .catch(err => cb(err))))
 
