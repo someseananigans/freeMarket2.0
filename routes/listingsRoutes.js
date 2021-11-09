@@ -29,7 +29,7 @@ router.get('/listings/:position', (req, res) => {
   })
     .then(listings => {
       let position = req.params.position
-      let limit = 5
+      let limit = 12
       listings.sort((a, b) => a.createdAt - b.createdAt)
       let splitListings = listings.slice((position - 1) * limit, position * limit)
       res.json({
