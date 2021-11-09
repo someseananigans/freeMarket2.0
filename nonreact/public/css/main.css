@@ -1,0 +1,417 @@
+body, .container {
+  background-color: rgb(243, 239, 239);
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 900;
+}
+
+body {
+  overflow: auto !important
+}
+
+.container-fluid {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Top Section Start */
+
+.spiel {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 200px;
+  background-image: linear-gradient(rgba(170, 213, 255, 0.966), rgba(191, 223, 255, 0.747), rgba(234, 247, 255, 0.308));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spiel p {
+  font-size: 2.5rem;
+  margin-bottom: 0;
+  margin-top: 0;
+  /* font-family: 'Sacramento', cursive; */
+  font-weight: 500;
+}
+
+/* Top Section End */
+
+/* Listings Start */
+
+.listing {
+  padding-bottom: 50px;
+  width: 850px;
+}
+
+.listings {
+  text-align: center;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes load {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.card {
+  height: 250px;
+  width: 200px;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  opacity: 1;
+  animation: 1.5s load;
+  -webkit-animation: 1.5s load;
+}
+
+.card-image {
+  height: 175px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card-title {
+  color: #1e88e5 !important;
+  margin: 0;
+}
+
+.titleBox {
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.spaceHead {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headLine {
+  margin-top: 15px;
+}
+
+.pagination {
+  justify-content: space-between;
+  animation: 1.5s load;
+  -webkit-animation: 1.5s load;
+  display: flex;
+  align-items: center;
+}
+
+.pageInput {
+  width: 75px !important;
+  text-align: center;
+}
+
+.disabled {
+  color: gray;
+}
+
+.pageDrop {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+  width: 100%;
+}
+
+.btnBox {
+  display: flex;
+}
+
+.modal {
+  height: 150px;
+  width: 215px;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.modalBtn {
+  width: 75px;
+  height: 33px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: #1E88E5;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  font-weight: 700;
+  color: white;
+}
+
+.gray {
+  background-color: gray;
+}
+
+.category {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Listings End */
+
+/* Login Start */
+
+.connect {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+h5 {
+  color: white;
+}
+
+.headSpace {
+  /* background-color: lightcoral; */
+  font-weight: 100;
+  padding: 10px;
+  margin-top: 20px;
+  color: rgb(4, 131, 110);
+}
+
+/* Login end */
+
+/* input start */
+
+#items {
+  text-align: center;
+  /* min-height: 650px; */
+}
+
+.card-panel {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  /* margin-bottom: 55px; */
+}
+
+.card-panel .row {
+  margin-bottom: -5px;
+}
+
+#items .card-panel {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.itemName {
+  width: 90% !important;
+  float: none !important;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 35px !important;
+  margin-bottom: 2px;
+}
+
+#invalid {
+  margin-top: -20px;
+  margin-bottom: 20px
+}
+
+.invalid {
+  border-bottom: #f44336
+}
+
+.input-field p, .input-field .select-wrapper {
+  display: inline-block;
+  clear: both;
+  float: none;
+}
+
+.loadField {
+  margin-bottom: -6px !important;
+}
+
+.select-wrapper .dropdown-content {
+  width: 300px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  height: min-content !important;
+  top: -35px !important;
+  left: 180px !important;
+  margin-bottom: 0px !important;
+}
+
+.select-wrapper .dropdown-content li {
+  width: 50%;
+  height: min-content;
+}
+
+.waves-effect {
+  width: 100% !important;
+}
+
+progress {
+  width: 100%;
+  -webkit-appearance: none;
+  border-radius: 20px;
+}
+
+::-webkit-progress-value {
+  background-color: rgb(36, 165, 133);
+  border-radius: 20px;
+}
+
+::-webkit-progress-bar {
+  background-color: gainsboro;
+  height: 6px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+/* input end */
+
+/* Media Queries */
+
+@media (max-width: 700px) {
+  #items .card-panel {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .listing {
+    width: 575px;
+  }
+  .card {
+    width: 180px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .listing {
+    width: 90%;
+  }
+  .card {
+    width: 300px;
+  }
+  .logo {
+    width: 120px !important;
+  }
+  .spiel p {
+    font-size: 1.75rem;
+  }
+  .spiel {
+    height: 170px;
+  }
+  .connect {
+    width: 80%;
+  }
+}
+
+
+@media only screen and (min-width: 1200px) {
+  #profileTools {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 993px) {
+  #profileTools {
+    width: 75% !important;
+  }
+}
+
+@media only screen and (max-width:600px) {
+  .itemName {
+    width: 100% !important;
+    padding-right: 25px !important;
+  }
+}
+
+/* scroll bar updates */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* modal start */
+
+.modal {
+  height: min-content;
+  width: min-content;
+  min-width: 500px;
+}
+
+/* modal end */
+
+/* misc */
+
+.info {
+  background: lightblue;
+  height: 140px;
+}
+
+.sidebar {
+  height: 500px;
+}
+
+/* my listings start */
+
+.cardItem {
+  height: 270px;
+  width: 235px !important;
+  display: flex;
+  flex-direction: column;
+  place-content: space-between;
+}
+
+.yellow {
+  margin-top: 10px;
+  flex: 1;
+}
+
+.myListingsBtn {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 7px;
+}
+
+.editPost {
+  width: 95px;
+}
+
+.deletePost {
+  width: 95px;
+}
+
+.listingTitle {
+  padding-top: 4px;
+}
+
+/* my listings end */
