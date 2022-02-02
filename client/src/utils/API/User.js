@@ -18,6 +18,14 @@ const User = {
     headers: hNorm
   })
     .then(response => response.json()),
+  login: () => fetch('api/user/login', {
+    method: 'POST',
+    headers: hAuth
+  }),
+  register: () => fetch('api/user/register', {
+    method: 'POST',
+    headers: hAuth
+  })
 }
 
 export default User
