@@ -1,17 +1,21 @@
 import { } from '../components'
 import { useState } from 'react'
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+import { useHistory } from 'react-router-dom'
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Paper,
+  Box,
+  Grid,
+  Typography
+} from '@mui/material'
+import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
+import { User } from '../utils'
 
 const Copyright = (props) => {
   return (
@@ -43,7 +47,6 @@ const Login = ({ handleSubmit, toggleAuthState, fieldError }) => {
           autoComplete="login"
           autoFocus
           error={fieldError.login}
-          helperText={fieldError.login && "Please enter your Username/Email"}
         />
         <TextField
           margin="normal"
@@ -55,7 +58,6 @@ const Login = ({ handleSubmit, toggleAuthState, fieldError }) => {
           id="password"
           autoComplete="current-password"
           error={fieldError.password}
-          helperText={fieldError.passowrd && "Please enter your Password"}
         />
         <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
@@ -174,6 +176,7 @@ const Register = ({ handleSubmit, toggleAuthState, fieldError }) => {
 
 
 const Auth = () => {
+  const history = useHistory()
 
   const [newAuthState, setNewAuthState] = useState(false)
   const [fieldError, setFieldError] = useState({
@@ -189,35 +192,66 @@ const Auth = () => {
     setNewAuthState(!newAuthState)
   }
 
+  const handleLogin = async (data) => {
+    await User.login(data)
+      .then(res => {
+        if (res.login) {
+          localStorage.setItem('user', res.user)
+          // *** incorporate a logging in page transition ***
+          history.push('/')
+        } else {
+          setFieldError({ ...fieldError, login: true, password: true })
+          // create login failure notification
+          console.log(res.message)
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
+  const handleRegister = (data) => {
+    console.log('hit')
+    User.login(data)
+      .then(res => {
+
+      })
+      .catch(error => console.log(error))
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     if (!newAuthState) {
+      const data = {
+        login: formData.get('login'),
+        password: formData.get('password')
+      }
       setFieldError({
         ...fieldError,
-        login: data.get('login') === "" && true,
-        password: data.get('password') === "" && true
+        login: data.login === "" && true,
+        password: data.password === "" && true
       })
-      console.log({
-        login: data.get('login'),
-        password: data.get('password'),
-      })
+      // if formData exists attempt login
+      if (data.login && data.password) { handleLogin(data) }
+      console.log(data)
     } else {
+      const data = {
+        email: formData.get('email'),
+        username: formData.get('username'),
+        name: formData.get('name'),
+        phone: formData.get('phone'),
+        pasword: formData.get('pasword')
+      }
       setFieldError({
         ...fieldError,
-        email: data.get('email') === "" && true,
-        username: data.get('username') === "" && true,
-        password: data.get('password') === "" && true,
-        name: data.get('name') === "" && true
+        email: data.email === "" && true,
+        username: data.username === "" && true,
+        password: data.password === "" && true,
+        name: data.name === "" && true
       })
-      console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-        name: data.get('name'),
-        phone: data.get('phone'),
-        username: data.get('username')
-      })
+      // if formData exists attempt register
+      if (data.username && data.email && data.name && data.passowrd) { handleRegister(data) }
+      console.log(data)
     }
 
   };
