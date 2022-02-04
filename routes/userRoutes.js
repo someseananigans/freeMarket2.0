@@ -97,7 +97,8 @@ router.post('/user/register', (req, res) => {
               status: 200,
               login: true,
               message: 'User successfully logged in',
-              user: jwt.sign({ id: user.id }, process.env.SECRET)
+              user: jwt.sign({ id: user.id }, process.env.SECRET),
+              info: user
             })
           } else {
             res.json({
@@ -140,7 +141,8 @@ router.post('/user/login', (req, res) => {
               status: 200,
               login: true,
               message: 'User successfully logged in',
-              user: jwt.sign({ id: user.id }, process.env.SECRET)
+              user: jwt.sign({ id: user.id }, process.env.SECRET),
+              info: user
             })
           } else {
             res.json({
@@ -171,7 +173,8 @@ router.post('/user/login', (req, res) => {
           status: 200,
           login: true,
           message: 'User successfully logged in',
-          user: jwt.sign({ id: user.id }, process.env.SECRET)
+          user: jwt.sign({ id: user.id }, process.env.SECRET),
+          info: user
         })
       } else {
         res.json({
