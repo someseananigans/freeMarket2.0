@@ -2,9 +2,12 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-import { Home, Auth } from './pages'
+import { Home, Auth, Listing } from './pages'
+
+import { useState } from 'react'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { UserContext } from './utils/Context/'
 
 
 const darkTheme = createTheme({
@@ -16,20 +19,27 @@ const darkTheme = createTheme({
 
 const App = () => {
 
+  const [customer, setCustomer] = useState({})
+  const value = { customer, setCustomer }
+
+
   return (
-    <ThemeProvider theme={darkTheme}>
-      <div id="main">
-        <Switch>
-          <Route exact path='/' >
-            <Home />
-          </Route>
-          <Route exact path='/auth' >
-            <Auth />
-          </Route>
-          {/* <Page404 /> */}
-        </Switch>
-      </div>
-    </ThemeProvider>
+    <UserContext.Provider value={value}>
+      <ThemeProvider theme={darkTheme}>
+        <div id="main">
+          <Switch>
+            <Route exact path='/' >
+              <Home />
+            </Route>
+            <Route exact path='/auth' >
+              <Auth />
+            </Route>
+            <Route exact path='/search/:username' component={Listing} />
+            {/* <Page404 /> */}
+          </Switch>
+        </div>
+      </ThemeProvider>
+    </UserContext.Provider>
   )
 }
 

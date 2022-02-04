@@ -1,5 +1,5 @@
 import { } from '../components'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   Avatar,
@@ -16,6 +16,7 @@ import {
 } from '@mui/material'
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import { User } from '../utils'
+import UserContext from '../utils/Context/UserContext';
 
 const Copyright = (props) => {
   return (
@@ -176,6 +177,7 @@ const Register = ({ handleSubmit, toggleAuthState, fieldError }) => {
 
 
 const Auth = () => {
+  const { customer, setCustomer } = useContext(UserContext)
   const history = useHistory()
 
   const [newAuthState, setNewAuthState] = useState(false)
@@ -198,7 +200,9 @@ const Auth = () => {
         if (res.login) {
           localStorage.setItem('user', res.user)
           // *** incorporate a logging in page transition ***
-          history.push('/')
+          // history.push('/')
+          setCustomer(res.info)
+          console.log(customer)
         } else {
           setFieldError({ ...fieldError, login: true, password: true })
           // create login failure notification
