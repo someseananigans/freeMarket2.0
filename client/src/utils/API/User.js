@@ -8,7 +8,7 @@ const hNorm = {
 }
 
 const User = {
-  getCurrent: () => fetch('/api/user', {
+  getCurrent: () => fetch('/api/user/info', {
     method: 'GET',
     headers: hAuth
   })
@@ -18,12 +18,29 @@ const User = {
     headers: hNorm
   })
     .then(response => response.json()),
-  login: () => fetch('api/user/login', {
-    method: 'POST',
-    headers: hAuth
+  getUser: (uid) => fetch(`/api/user/${uid}`, {
+    method: 'GET',
+    headers: hNorm
   }),
-  register: () => fetch('api/user/register', {
+  login: (login) => fetch('/api/user/login', {
     method: 'POST',
+    headers: hNorm,
+    body: JSON.stringify(login)
+  })
+    .then(response => response.json()),
+  register: (register) => fetch('/api/user/register', {
+    method: 'POST',
+    headers: hNorm,
+    body: JSON.stringify(register)
+  })
+    .then(response => response.json()),
+  update: (update) => fetch('/api/user', {
+    method: 'PUT',
+    headers: hAuth,
+    body: JSON.stringify(update)
+  }),
+  delete: () => fetch('/api/user', {
+    method: 'DELETE',
     headers: hAuth
   })
 }
