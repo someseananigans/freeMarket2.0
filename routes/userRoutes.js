@@ -3,11 +3,19 @@ const { User } = require('../models')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
-// get user(listings)
-router.get('/user/auth', passport.authenticate('jwt'), (req, res) => {
+// get curent
+router.get('/user/info', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json(req.user)
 })
 
+// get user
+router.get('/user/:uid', (req, res) => {
+  User.findOne({ where: { id: req.params.uid } })
+    .then(user => res.json(user))
+    .catch(err => res.json(err))
+})
+
+// get usernames
 router.get('/usernames', (req, res) => {
   User.findAll({})
     .then(users => {
@@ -20,7 +28,7 @@ router.get('/usernames', (req, res) => {
     .catch(err => res.json(err))
 })
 
-// Add new user (register)
+// Register User (Add new user)
 router.post('/user/register', (req, res) => {
   let status = {
     name: '',
@@ -84,11 +92,22 @@ router.post('/user/register', (req, res) => {
         // login
         User.authenticate()(lowerCaseUsername, password, (err, user) => {
           if (err) { console.log(err) }
-          res.json({
-            status: 200,
-            message: 'Successfully Registered and Logged In',
-            user: user ? jwt.sign({ id: user._id }, process.env.SECRET) : null
-          })
+          if (user) {
+            res.json({
+              status: 200,
+              login: true,
+              message: 'User successfully logged in',
+              user: jwt.sign({ id: user.id }, process.env.SECRET)
+            })
+          } else {
+            res.json({
+              status: 400,
+              login: true,
+              message: 'Login Failed',
+              user: null
+            })
+          }
+
         })
       }
     })
@@ -107,13 +126,63 @@ router.post('/user/register', (req, res) => {
 
 // Login user
 router.post('/user/login', (req, res) => {
-  User.authenticate()(req.body.username, req.body.password, (err, user) => {
-    if (err) { console.log(err) }
-    // webtoken (store to represent users login)
-    res.json({
-      user: user ? jwt.sign({ user: user._id }, process.env.SECRET) : null
+  const { login, password } = req.body
+  // login is an email
+  if (login.includes('@')) {
+    // grab username from user using email
+    User.findOne({ where: { email: login } })
+      .then(({ username }) => {
+        User.authenticate()(username, password, (err, user) => {
+          if (err) { console.log(err) }
+          // webtoken (store to represent users login)
+          if (user) {
+            res.json({
+              status: 200,
+              login: true,
+              message: 'User successfully logged in',
+              user: jwt.sign({ id: user.id }, process.env.SECRET)
+            })
+          } else {
+            res.json({
+              status: 200,
+              login: false,
+              message: 'Incorrect password',
+              user: null
+            })
+          }
+        })
+      })
+      .catch(err => res.json({
+        status: 200,
+        login: false,
+        email: login,
+        exist: false,
+        message: `Email not registered`,
+        user: null
+      }))
+  }
+  // login is username
+  else {
+    User.authenticate()(login, password, (err, user) => {
+      if (err) { console.log(err) }
+      // webtoken (store to represent users login)
+      if (user) {
+        res.json({
+          status: 200,
+          login: true,
+          message: 'User successfully logged in',
+          user: jwt.sign({ id: user.id }, process.env.SECRET)
+        })
+      } else {
+        res.json({
+          status: 200,
+          login: false,
+          message: 'Incorrect password',
+          user: null
+        })
+      }
     })
-  })
+  }
 })
 
 // Update current user (needs update)
