@@ -8,7 +8,7 @@ const syncDB = require('./db')
 const { User, Listing } = require('./models')
 // Authentication / Strategy
 const passport = require('passport')
-const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt')
 
 const app = express()
 
@@ -24,16 +24,24 @@ passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+
+
 let opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET
 }
 
-passport.use(new JWTStrategy(opts, (jwt_payload, cb) => {
-  User.findOne({ id: jwt_payload, include: [Listing] })
+
+
+let strategy = new JwtStrategy(opts, async (jwt_payload, cb) => {
+  console.log(jwt_payload)
+  User.findOne({ where: { id: jwt_payload.id } })
     .then(user => cb(null, user))
     .catch(err => cb(err))
-}))
+
+})
+
+passport.use(strategy)
 
 app.use(require('./routes'))
 
