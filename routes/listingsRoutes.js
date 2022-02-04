@@ -3,7 +3,23 @@ const { Listing } = require('../models')
 const { User } = require('../models')
 const passport = require('passport')
 
-// Get all listings (No authentication necessary)
+// get current user listings
+router.get('/user/listings', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Listing.findAll({ where: { uid: req.user.id } })
+    .then(listings => res.json(listings))
+    .catch(err => res.json(err))
+})
+
+// get specific user listings
+router.get('/listings/user/:uid', (req, res) => {
+  Listing.findAll({ where: { uid: req.params.uid } })
+    .then(listings => res.json(listings))
+    .catch(err => res.json(err))
+})
+
+// get specific listing
+
+// Get All listings (No authentication necessary)
 router.get('/listings', (req, res) => {
   Listing.findAll({
     include: [
@@ -17,7 +33,7 @@ router.get('/listings', (req, res) => {
     .catch(err => res.json(listings))
 })
 
-// Get all listings (No authentication necessary)
+// Get increment all listings (No authentication necessary)
 router.get('/listings/:position', (req, res) => {
   Listing.findAll({
     include: [
