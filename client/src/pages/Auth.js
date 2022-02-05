@@ -16,7 +16,7 @@ import {
 } from '@mui/material'
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import { User } from '../utils'
-import UserContext from '../utils/Context/UserContext';
+import { UserContext } from '../utils/Context/';
 
 const Copyright = (props) => {
   return (
@@ -200,9 +200,8 @@ const Auth = () => {
         if (res.login) {
           localStorage.setItem('user', res.user)
           // *** incorporate a logging in page transition ***
-          // history.push('/')
+          history.push('/')
           setCustomer(res.info)
-          console.log(customer)
         } else {
           setFieldError({ ...fieldError, login: true, password: true })
           // create login failure notification
@@ -213,10 +212,19 @@ const Auth = () => {
   }
 
   const handleRegister = (data) => {
-    console.log('hit')
-    User.login(data)
+    User.register(data)
       .then(res => {
-
+        console.log(res)
+        if (res.login) {
+          localStorage.setItem('user', res.user)
+          // *** incorporate a logging in page transition ***
+          history.push('/')
+          setCustomer(res.info)
+        } else {
+          setFieldError({ ...fieldError, login: true, password: true })
+          // create login failure notification
+          console.log(res.message)
+        }
       })
       .catch(error => console.log(error))
   }
@@ -244,7 +252,7 @@ const Auth = () => {
         username: formData.get('username'),
         name: formData.get('name'),
         phone: formData.get('phone'),
-        pasword: formData.get('pasword')
+        password: formData.get('password')
       }
       setFieldError({
         ...fieldError,
@@ -254,7 +262,7 @@ const Auth = () => {
         name: data.name === "" && true
       })
       // if formData exists attempt register
-      if (data.username && data.email && data.name && data.passowrd) { handleRegister(data) }
+      if (data.username && data.email && data.name && data.password) { handleRegister(data) }
       console.log(data)
     }
 
