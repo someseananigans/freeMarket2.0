@@ -2,7 +2,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-import { Home, Auth, Listing } from './pages'
+import { Home, Auth, Listing, CreateListing } from './pages'
 
 import { useState } from 'react'
 
@@ -33,6 +33,9 @@ const App = () => {
             </Route>
             <Route exact path='/auth' >
               <Auth />
+            </Route>
+            <Route exact path='/listing/new' >
+              <CreateListing />
             </Route>
             <Route exact path='/search/:username' component={Listing} />
             {/* <Page404 /> */}
