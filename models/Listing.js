@@ -1,14 +1,31 @@
-const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../db')
 
-class Listing extends Model { }
 
-// Create listings Table with columns
-Listing.init({
-  title: DataTypes.STRING,
-  description: DataTypes.STRING,
-  category: DataTypes.STRING,
-  image: DataTypes.STRING,
-}, { sequelize, modelName: 'listings' })
+const { model, Schema } = require('mongoose')
 
-module.exports = Listing
+const ListingSchema = new Schema({
+  isArchive: Boolean,
+  title: {
+    type: String,
+    required: true
+  },
+  description: String,
+  categories: [{
+    type: Schema.Types.ObjectId,
+    ref: 'category'
+  }],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'comment'
+  }],
+  favorited: [{
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  },
+  createdAt: { type: Date, default: Date.now }
+})
+
+module.exports = model('listing', ListingSchema)

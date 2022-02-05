@@ -10,14 +10,14 @@ router.get('/user/info', passport.authenticate('jwt', { session: false }), (req,
 
 // get user
 router.get('/user/:uid', (req, res) => {
-  User.findOne({ where: { id: req.params.uid } })
+  User.findById(req.params.uid)
     .then(user => res.json(user))
     .catch(err => res.json(err))
 })
 
 // get usernames
 router.get('/usernames', (req, res) => {
-  User.findAll({})
+  User.find({})
     .then(users => {
       let usernames = []
       users.forEach(user => {
@@ -59,7 +59,7 @@ router.post('/user/register', (req, res) => {
   }
 
   // grab registered users data to cross reference for duplicates
-  User.findAll({})
+  User.find({})
     .then(users => {
       users.forEach(user => {
         registeredUsers.email.push(user.email)
@@ -97,7 +97,7 @@ router.post('/user/register', (req, res) => {
               status: 200,
               login: true,
               message: 'User successfully logged in',
-              user: jwt.sign({ id: user.id }, process.env.SECRET),
+              user: jwt.sign({ id: user._id }, process.env.SECRET),
               info: user
             })
           } else {
@@ -141,7 +141,7 @@ router.post('/user/login', (req, res) => {
               status: 200,
               login: true,
               message: 'User successfully logged in',
-              user: jwt.sign({ id: user.id }, process.env.SECRET),
+              user: jwt.sign({ id: user._id }, process.env.SECRET),
               info: user
             })
           } else {
@@ -173,7 +173,7 @@ router.post('/user/login', (req, res) => {
           status: 200,
           login: true,
           message: 'User successfully logged in',
-          user: jwt.sign({ id: user.id }, process.env.SECRET),
+          user: jwt.sign({ id: user._id }, process.env.SECRET),
           info: user
         })
       } else {
@@ -190,14 +190,14 @@ router.post('/user/login', (req, res) => {
 
 // Update current user (needs update)
 router.put('/user', passport.authenticate('jwt'), (req, res) => {
-  User.update(req.body, { where: { id: req.user.id } })
+  User.update(req.body, { where: { id: req.user._id } })
     .then(() => res.sendStatus(200))
     .catch(err => res.json(err))
 })
 
 // Delete user
 router.delete('/user', passport.authenticate('jwt'), (req, res) => {
-  User.destroy({ where: { id: req.user.id } })
+  User.destroy({ where: { id: req.user._id } })
     .then(() => res.sendStatus(200))
     .catch(err => console.log(err))
 })

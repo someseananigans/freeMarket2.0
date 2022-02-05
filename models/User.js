@@ -1,25 +1,69 @@
-const pls = require('passport-local-sequelize')
-const { DataTypes } = require('sequelize')
-const sequelize = require('../db')
 
-// establish user table (syntax for autherization purposes)
-const User = pls.defineUser(sequelize, {
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true
+
+const { model, Schema } = require('mongoose')
+
+const UserSchema = new Schema({
+  isAdmin: Boolean,
+  name: {
+    type: String,
+    required: true
   },
+  dateOfBirth: {
+    type: Date,
+    trim: false
+  },
+  gender: String,
   username: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: String,
+    index: {
+      unique: true,
+      sparse: true
+    }
   },
-  name: DataTypes.STRING,
   email: {
-    type: DataTypes.STRING,
-    unique: true
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
   },
-  phone: DataTypes.STRING
+  phone: {
+    type: Number,
+    unique: true,
+    trim: true
+  },
+  address: {
+    line1: String,
+    line2: String,
+    city: String,
+    zipCode: Number,
+    country: String
+  },
+  profile: String,
+  summart: String,
+  languages: String,
+  following: [{
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }],
+  followers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }],
+  favorites: [{
+    type: Schema.Types.ObjectId,
+    ref: 'listing'
+  }],
+  listing: [{
+    type: Schema.Types.ObjectId,
+    ref: 'listing'
+  }],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'comments'
+  }],
+  createdAt: { type: Date, default: Date.now }
 })
 
-module.exports = User
+UserSchema.plugin(require('passport-local-mongoose'), { usernameField: 'email' })
+
+module.exports = model('user', UserSchema)
