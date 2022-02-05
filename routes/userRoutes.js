@@ -90,7 +90,7 @@ router.post('/user/register', (req, res) => {
       }
       else {
         // login
-        User.authenticate()(lowerCaseUsername, password, (err, user) => {
+        User.authenticate()(email, password, (err, user) => {
           if (err) { console.log(err) }
           if (user) {
             res.json({
@@ -103,7 +103,7 @@ router.post('/user/register', (req, res) => {
           } else {
             res.json({
               status: 400,
-              login: true,
+              login: false,
               message: 'Login Failed',
               user: null
             })
@@ -129,11 +129,11 @@ router.post('/user/register', (req, res) => {
 router.post('/user/login', (req, res) => {
   const { login, password } = req.body
   // login is an email
-  if (login.includes('@')) {
+  if (!login.includes('@')) {
     // grab username from user using email
-    User.findOne({ where: { email: login } })
-      .then(({ username }) => {
-        User.authenticate()(username, password, (err, user) => {
+    User.findOne({ where: { username: login } })
+      .then(({ email }) => {
+        User.authenticate()(email, password, (err, user) => {
           if (err) { console.log(err) }
           // webtoken (store to represent users login)
           if (user) {
