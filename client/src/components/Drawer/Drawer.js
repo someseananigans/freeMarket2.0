@@ -1,5 +1,7 @@
-import { useState } from 'react'
-import { Drawer as Draw } from '@mui/material/';
+import { useState, useContext } from 'react'
+import { UserContext } from '../../utils/Context/';
+import { useHistory } from 'react-router-dom'
+import { Drawer as Draw, Avatar } from '@mui/material/';
 import { styled } from '@mui/material/styles';
 
 import { Divider, ListSubheader, List, ListItemButton, ListItemIcon, ListItemText, Collapse } from '@mui/material'
@@ -15,16 +17,42 @@ const SideNav = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper
 }));
 
+const ProfileWrapper = styled('div')(({ theme }) => ({
+  width: '100%',
+  height: 'fit-content',
+  display: 'flex',
+  padding: '20px'
+}))
+
+const TextWrapper = styled('div')(({ theme }) => ({
+  marginLeft: '10px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between'
+}))
+
+const ListItemBtn = styled(ListItemButton)(({ theme }) => ({
+  paddingLeft: '25px',
+
+}))
 
 const Drawer = ({ open, toggle }) => {
 
   const [expand, setExpand] = useState({
     test: false
   })
+  const { customer, setCustomer } = useContext(UserContext)
+  const history = useHistory()
 
-  const handleClick = (name) => {
-    setExpand({ ...expand, [name]: !expand[name] })
+  // const handleClick = (name) => {
+  //   setExpand({ ...expand, [name]: !expand[name] })
+  // }
+
+  const logOut = () => {
+    localStorage.removeItem('user')
+    history.push('/auth')
   }
+
 
   return (
     <>
@@ -34,92 +62,112 @@ const Drawer = ({ open, toggle }) => {
         onClose={toggle}
       >
         <SideNav>
-          <div>This is wear name/logo goes</div>
+          <ProfileWrapper>
+            <Avatar
+              alt={customer.username}
+              src={customer.profile}
+              sx={{
+                height: '40px',
+                width: '40px'
+              }} />
+            <TextWrapper>
+              <h4>{customer.username}</h4>
+              <p onClick={() => history.push('/auth')}>View Profile</p>
+            </TextWrapper>
+          </ProfileWrapper>
+          <Divider />
           <List
-            sx={{ bgcolor: 'background.paper', padding: '0 10px 0 10px' }}
+            sx={{ bgcolor: 'background.paper' }}
             component="nav"
             aria-labelledby="nested-list-subheader"
             subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Sub Header
+              <ListSubheader component="div" id="nested-list-subheader" style={{
+                height: '35px', padding: '0 15px 0 15px'
+              }}>
+                SELLING
               </ListSubheader>
             }
           >
-            <ListItemButton>
-              <ListItemIcon>
-                <SendIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <SendIcon />
-              </ListItemIcon>
-              <ListItemText primary="Messages" />
-            </ListItemButton>
+            <ListItemBtn onClick={() => history.push('/listing/new')}>
+              <ListItemText primary="List an Item" />
+            </ListItemBtn>
+            <ListItemBtn>
+              <ListItemText primary="My Listings" />
+            </ListItemBtn>
           </List>
           <Divider />
           <List
-            sx={{ bgcolor: 'background.paper', padding: '0 10px 0 10px' }}
+            sx={{ bgcolor: 'background.paper' }}
             component="nav"
             aria-labelledby="nested-list-subheader"
             subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Sub Header
+              <ListSubheader component="div" id="nested-list-subheader" style={{
+                height: '35px', padding: '0 15px 0 15px'
+              }}>
+                BUYING
               </ListSubheader>
             }
           >
-            <ListItemButton>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Account" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Listings" />
-            </ListItemButton>
-            <ListItemButton onClick={() => handleClick('test')}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
+            <ListItemBtn>
+              <ListItemText primary="Favorites" />
+            </ListItemBtn>
+            <ListItemBtn>
+              <ListItemText primary="My Purchases" />
+            </ListItemBtn>
+            {/* <ListItemBtn onClick={() => handleClick('test')}>
+              <ListItemText primary="Contact" />
               {expand.test ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
+            </ListItemBtn>
             <Collapse in={expand.test} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemBtn sx={{ pl: 4 }}>
                   <ListItemIcon>
                     <StarBorder />
                   </ListItemIcon>
                   <ListItemText primary="Profile" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+                </ListItemBtn>
+                <ListItemBtn sx={{ pl: 4 }}>
                   <ListItemIcon>
                     <StarBorder />
                   </ListItemIcon>
                   <ListItemText primary="Listings" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+                </ListItemBtn>
+                <ListItemBtn sx={{ pl: 4 }}>
                   <ListItemIcon>
                     <StarBorder />
                   </ListItemIcon>
                   <ListItemText primary="Log Out" />
-                </ListItemButton>
+                </ListItemBtn>
               </List>
-            </Collapse>
+            </Collapse> */}
           </List>
-          <h3>test</h3>
+          <Divider />
+          <List
+            sx={{ bgcolor: 'background.paper' }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader" style={{
+                height: '35px', padding: '0 15px 0 15px'
+              }}>
+                SYSTEM
+              </ListSubheader>
+            }
+          >
+            <ListItemBtn>
+              <ListItemText primary="Contact" />
+            </ListItemBtn>
+            <ListItemBtn>
+              <ListItemText primary="How it Works" />
+            </ListItemBtn>
+            <Divider style={{ paddingBottom: '8px' }} />
+            <ListItemBtn style={{ marginTop: '8px' }} onClick={logOut}>
+              <ListItemText primary="Log Out" />
+            </ListItemBtn>
+          </List>
+
         </SideNav>
-      </Draw>
+      </Draw >
     </>
 
 

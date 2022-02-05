@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react'
 import {
   styled,
   alpha
@@ -11,12 +11,21 @@ import {
   Typography,
   InputBase,
   Badge,
+  Stack,
+  Button,
+  Avatar
 } from '@mui/material/';
 import {
   Menu as MenuIcon,
   Search as SearchIcon,
+  FavoriteBorder as FaveIcon,
+  ChatBubbleOutline as ChatIcon,
+  ShoppingCartOutlined as ShopIcon
 } from '@mui/icons-material/';
 import { Drawer } from '..';
+import { UserContext } from '../../utils/Context/';
+import { useHistory } from 'react-router-dom'
+import { User } from '../../utils/API'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -33,6 +42,10 @@ const Search = styled('div')(({ theme }) => ({
     width: 'auto',
   },
 }));
+
+const IconButtonv2 = styled(IconButton)(({ theme }) => ({
+  marginLeft: 0,
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -59,8 +72,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  const { customer, setCustomer } = useContext(UserContext)
+
+  const loadCustomer = () => {
+    User.getCurrent()
+      .then(user => {
+        setCustomer(user)
+        console.log(user)
+      })
+      .catch(err => console.log(err))
+  }
+
+  const history = useHistory()
   const [drawer, setDrawer] = useState(false)
   const toggleDrawer = () => setDrawer(!drawer)
+
+
+  useEffect(() => {
+    console.log(customer)
+    if (localStorage.getItem('user') && !customer.name) {
+      loadCustomer()
+    }
+
+  }, []);
 
 
   return (
@@ -73,11 +107,12 @@ const Navbar = () => {
               variant="h6"
               noWrap
               component="div"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
+              sx={{ display: { xs: 'none', sm: 'block', cursor: "pointer" } }}
+              onClick={history.push('/')}
             >
               MUI
             </Typography>
-            <Search>
+            <Search sx={{ flexGrow: 1 }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -86,19 +121,54 @@ const Navbar = () => {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-            <Box sx={{ flexGrow: 1 }} />
-            <IconButton
+            {/* <Box sx={{ flexGrow: 1 }} /> */}
+            <Stack spacing={1} direction="row">
+              <IconButtonv2>
+                <FaveIcon
+                  sx={{
+                    height: '27px',
+                    width: '27px'
+                  }} />
+              </IconButtonv2>
+              <IconButtonv2>
+                <ChatIcon
+                  sx={{
+                    height: '27px',
+                    width: '27px'
+                  }} />
+              </IconButtonv2>
+              <IconButtonv2>
+                <ShopIcon
+                  sx={{
+                    height: '27px',
+                    width: '27px'
+                  }} />
+              </IconButtonv2>
+
+              <IconButtonv2>
+                <Avatar
+                  alt={customer.username}
+                  src={customer.profile}
+                  sx={{
+                    height: '30px',
+                    width: '30px'
+                  }}
+                  onClick={toggleDrawer} />
+              </IconButtonv2>
+              <Button onClick={() => history.push('/listing/new')} variant="contained" >List an Item</Button>
+            </Stack>
+            {/* <IconButtonv2
               size="large"
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              sx={{ mr: 0 }}
+              sx={{ mr: 0, ml: 2 }}
               onClick={toggleDrawer}
             >
               <Badge badgeContent={17} color="error">
                 <MenuIcon />
               </Badge>
-            </IconButton>
+            </IconButtonv2> */}
           </Toolbar>
         </AppBar>
 
