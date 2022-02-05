@@ -3,7 +3,7 @@
 const { model, Schema } = require('mongoose')
 
 const UserSchema = new Schema({
-  isAdmin: Boolean,
+  isAdmin: { type: Boolean, default: false },
   name: {
     type: String,
     required: true
