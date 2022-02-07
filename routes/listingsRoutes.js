@@ -136,15 +136,31 @@ router.get('/listings/id/:id', (req, res) => {
 // Add new listing
 router.post('/listings/', passport.authenticate('jwt'), (req, res) => {
   let lowerCaseTitle = req.body.title.toLowerCase()
+
+  const hashTags = [req.body.hashTag1, req.body.hashTag2, req.body.hashTag3]
+
+  console.log(req.body)
+
   Listing.create({
-    title: lowerCaseTitle,
+    photos: req.body.photos,
+    title: req.body.title,
     description: req.body.description,
-    image: req.body.image,
-    category: req.body.category,
-    uid: req.user.id,
+    hashTag: hashTags,
+    brand: req.body.brand,
+    // category: req.body.category,
+    condition: 'new',
+    color: req.body.color,
+    shippingZip: req.body.shippingZip,
+    deliveryCharge: req.body.deliveryCharge,
+    price: req.body.price,
+    owner: req.user._id,
   })
-    .then(listing => res.json(listing))
-    .catch(err => res.json(err))
+    .then(listing => {
+      User.findByIdAndUpdate(req.user._id, { $push: { listing: listing._id } })
+        .then(() => res.json(listing))
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
 })
 
 // Update a listing (list unique id)
