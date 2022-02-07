@@ -3,6 +3,7 @@ let PORT = 3001
 
 const express = require('express')
 const { join } = require('path')
+const cors = require('cors')
 
 const { User, Listing } = require('./models')
 // Authentication / Strategy
@@ -10,6 +11,8 @@ const passport = require('passport')
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt')
 
 const app = express()
+
+app.use(cors())
 
 app.use(express.static(join(__dirname, 'client', 'build')))
 app.use(express.urlencoded({ extended: true }))
