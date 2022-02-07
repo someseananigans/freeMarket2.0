@@ -4,18 +4,6 @@ const validateEmail = (email) => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
-// go to edit profile page
-document.getElementById('editMyProfile').addEventListener('click', event => {
-  window.location = '/myProfile'
-})
-// go to create a post page
-document.getElementById('createListing').addEventListener('click', event => {
-  window.location = '/createListing'
-})
-// go to my listings page
-document.getElementById('myListings').addEventListener('click', event => {
-  window.location = '/myListings'
-})
 
 let token = localStorage.getItem('token')
 console.log(token)
@@ -144,7 +132,6 @@ document.getElementById('editBtn').addEventListener('click', event => {
     .catch(err => console.log(err))
 })
 
-document.getElementById('signOut').addEventListener('click', event => {
-  localStorage.removeItem('token')
-  window.location = '/login'
-})
+
+
+

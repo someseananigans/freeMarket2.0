@@ -17,7 +17,11 @@ const status = () => {
     let myProf = document.createElement('li')
     myProf.innerHTML = `<a class="hide-on-small-only" href="/myProfile">My Profile</a>`
 
+    let createList = document.createElement('li')
+    createList.innerHTML = `<a class="hide-on-small-only createListing" >Create Listing</a>`
+
     document.getElementById('navList').append(myProf)
+    document.getElementById('navList').append(createList)
     document.getElementById('navList').append(signOut)
 
     // side nav
@@ -53,8 +57,8 @@ const getListings = (count) => {
 
   axios.get(`api/listings/${count}`)
     .then(({ data }) => {
-      let limit = 5 // 20 listings per page (consistent with api)
-      let pageCount = data.total / limit
+      let limit = 12 // 20 listings per page (consistent with api)
+      let pageCount = Math.ceil(data.total / limit)
 
       if (document.getElementById('pages').innerHTML.length < 100) {
         // pagination
@@ -62,7 +66,7 @@ const getListings = (count) => {
           <li class="disabled" id="left"><i class="material-icons">chevron_left</i></li>
           <input 
             id="pageNumber" 
-            value='${count} of ${data.total / data.subtotal} '
+            value='${count} of ${pageCount} '
             data-pages=${data.total / data.subtotal} 
             class="pageInput"
           >

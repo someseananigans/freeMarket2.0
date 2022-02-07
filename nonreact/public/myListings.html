@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- font package -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <link href="./css/navbar.css" rel="stylesheet">
+  <link href="./css/main.css" rel="stylesheet">
+
+  <title>FreeMarket</title>
+</head>
+
+<body>
+
+
+
+
+
+  <div class="container-fluid">
+
+    <nav class="blue darken-1">
+      <a data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+      <ul id="slide-out" class="sidenav header center">
+        <div class="row blue darken-1 center hide-on-med-and-up">
+          <a href="index" class="valign-wrapper sideHead"><img src="./freeMarketLogo.png" class="logo"></a>
+        </div>
+        <div class="navContain">
+          <li class="collection-item filter waves-effect waves-orange" id="editMyProfile">My Profile</li>
+          <li class="collection-item filter waves-effect waves-orange" id="createListing">Create a Listing</li>
+          <li class="collection-item filter waves-effect waves-orange" id="myListings">My Listings</li>
+        </div>
+      </ul>
+      <div class="sideNavCont">
+        <a href="./index" class="brand-logo center"><img src="./freeMarketLogo.png" class="logo">
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="./index">Home Page</a></li>
+          <li><a href="./index" id="signOut">Log Out</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container" id="profileTools">
+      <div class="col s9 l9">
+        <div class="row" style="margin-bottom: 0; padding-bottom: 67px;" id="items"></div>
+      </div>
+    </div>
+
+    <footer class="footer-copyright">
+      <p id="footerContent"> © Created by Sean Nguyen, Joseph Nielsen, and Kyle Ohlwiler</p>
+    </footer>
+  </div>
+
+
+
+
+
+
+  <!-- Modal Structure -->
+
+  <div id="listingModal" class="modal itemModal">
+    <!-- <div class="modal-content" id="listFull"> -->
+    <!-- <div class="container" id='profileTools'> -->
+    <div id="items" class="col">
+      <h1 style="text-align: center; font-weight: 100; color: #1e88e5; margin: 10px;">New Listing</h1>
+      <div class="card-panel">
+  
+        <div class="itemName input-field">
+          <i class="material-icons prefix">title</i>
+          <input id="title" type="text" class="validate">
+          <label for="item">Title</label>
+        </div>
+  
+        <div class="itemName input-field">
+          <i class="material-icons prefix">description</i>
+          <textarea id="description" type="text" class="materialize-textarea validate"></textarea>
+          <label for="description">Description</label>
+        </div>
+  
+        <div class="itemName input-field inline">
+          <i class="material-icons prefix">class</i>
+  
+          <select class="input-field" id="category">
+            <option value="" disabled selected>Choose a category</option>
+            <option>Automotive</option>
+            <option>Household</option>
+            <option>Decor</option>
+            <option>Apparel</option>
+            <option>Accessories</option>
+            <option>Technology</option>
+            <option>Pet</option>
+            <option>Random</option>
+          </select>
+        </div>
+  
+  
+        <form action="#" class="itemName">
+          <div class="file-field input-field">
+            <div class="btn yellow darken-3">
+              <span>Image</span>
+              <input id="fileButton" value="upload" type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate loadField" type="text">
+              <progress value="0" max="100" id="uploader">0%</progress>
+            </div>
+          </div>
+        </form>
+  
+        <button class="btn yellow darken-3" type="submit" name="action" id="createItem">Create
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+  </div>
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Edit Listing</h4>
+      <form>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="uTitle" type="text" class="validate" id="title">
+            <label id="activeT" for="uTitle">Title</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="uDescription" type="text" class="validate" id="description">
+            <label id="activeD" for="uDescription">Description</label>
+          </div>
+        </div>
+        <div class="file-field input-field">
+          <div class="btn yellow darken-3">
+            <span>Image</span>
+            <input value="upload" type="file" id="fileButton">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+            <progress value="0" max="100" id="uploader" hidden>0%</progress>
+          </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn modal-close waves-effect yellow darken-3 btn-flat" id="saveUpdate" type="submit"
+        name="action">Save
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+
+  
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+
+
+
+  <script>
+    $(document).ready(function () {
+        $('select').formSelect();
+      });
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+    })
+  </script>
+
+  <script src="./js/myListings.js"></script>
+  <script src="./js/sidebar.js"></script>
+</body>
+
+</html>

@@ -3,7 +3,23 @@ const { Listing } = require('../models')
 const { User } = require('../models')
 const passport = require('passport')
 
-// Get all listings (No authentication necessary)
+// get current user listings
+router.get('/user/listings', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Listing.findAll({ where: { uid: req.user.id } })
+    .then(listings => res.json(listings))
+    .catch(err => res.json(err))
+})
+
+// get specific user listings
+router.get('/listings/user/:uid', (req, res) => {
+  Listing.findAll({ where: { uid: req.params.uid } })
+    .then(listings => res.json(listings))
+    .catch(err => res.json(err))
+})
+
+// get specific listing
+
+// Get All listings (No authentication necessary)
 router.get('/listings', (req, res) => {
   Listing.findAll({
     include: [
@@ -17,7 +33,7 @@ router.get('/listings', (req, res) => {
     .catch(err => res.json(listings))
 })
 
-// Get all listings (No authentication necessary)
+// Get increment all listings (No authentication necessary)
 router.get('/listings/:position', (req, res) => {
   Listing.findAll({
     include: [
@@ -29,7 +45,7 @@ router.get('/listings/:position', (req, res) => {
   })
     .then(listings => {
       let position = req.params.position
-      let limit = 5
+      let limit = 12
       listings.sort((a, b) => a.createdAt - b.createdAt)
       let splitListings = listings.slice((position - 1) * limit, position * limit)
       res.json({
@@ -120,15 +136,31 @@ router.get('/listings/id/:id', (req, res) => {
 // Add new listing
 router.post('/listings/', passport.authenticate('jwt'), (req, res) => {
   let lowerCaseTitle = req.body.title.toLowerCase()
+
+  const hashTags = [req.body.hashTag1, req.body.hashTag2, req.body.hashTag3]
+
+  console.log(req.body)
+
   Listing.create({
-    title: lowerCaseTitle,
+    photos: req.body.photos,
+    title: req.body.title,
     description: req.body.description,
-    image: req.body.image,
-    category: req.body.category,
-    uid: req.user.id,
+    hashTag: hashTags,
+    brand: req.body.brand,
+    // category: req.body.category,
+    condition: 'new',
+    color: req.body.color,
+    shippingZip: req.body.shippingZip,
+    deliveryCharge: req.body.deliveryCharge,
+    price: req.body.price,
+    owner: req.user._id,
   })
-    .then(listing => res.json(listing))
-    .catch(err => res.json(err))
+    .then(listing => {
+      User.findByIdAndUpdate(req.user._id, { $push: { listing: listing._id } })
+        .then(() => res.json(listing))
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
 })
 
 // Update a listing (list unique id)

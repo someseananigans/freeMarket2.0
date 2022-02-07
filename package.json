@@ -4,33 +4,36 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*' \" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/QFults/Week06-Review.git"
+    "url": "git+https://github.com/someseananigans/freemarket2.0.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/QFults/Week06-Review/issues"
+    "url": "https://github.com/someseananigans/freemarket/issues"
   },
-  "homepage": "https://github.com/QFults/Week06-Review#readme",
+  "homepage": "https://github.com/someseananigans/freemarket2.0#readme",
   "dependencies": {
+    "concurrently": "^6.3.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase": "^8.3.1",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.0",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "passport-local-sequelize": "^0.9.0",
-    "sequelize": "^6.5.1"
-  },
-  "production": {
-    "use_env_variable": "JAWSDB_URL",
-    "dialect": "mysql"
+    "passport-local-mongoose": "^6.1.0"
   }
 }

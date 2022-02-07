@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
   <!-- styling -->
   <link href="./css/navbar.css" rel="stylesheet">
-  <link href="./css/profile.css" rel="stylesheet">
+  <link href="./css/main.css" rel="stylesheet">
   <style>
     .info {
       background: lightblue;
@@ -39,7 +39,7 @@
   <div class="container-fluid">
     <nav class="blue darken-1">
       <a data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
-      <ul id="slide-out" class="sidenav header center invesible-top">
+      <ul id="slide-out" class="sidenav header center">
         <div class="row blue darken-1 center hide-on-med-and-up">
           <a href="index" class="valign-wrapper sideHead"><img src="./freeMarketLogo.png" class="logo"></a>
         </div>
@@ -108,6 +108,64 @@
     </footer>
   </div>
 
+  <div id="listingModal" class="modal itemModal">
+    <!-- <div class="modal-content" id="listFull"> -->
+    <!-- <div class="container" id='profileTools'> -->
+    <div id="items" class="col">
+      <h1 style="text-align: center; font-weight: 100; color: #1e88e5; margin: 10px;">New Listing</h1>
+      <div class="card-panel">
+  
+        <div class="itemName input-field">
+          <i class="material-icons prefix">title</i>
+          <input id="title" type="text" class="validate">
+          <label for="item">Title</label>
+        </div>
+  
+        <div class="itemName input-field">
+          <i class="material-icons prefix">description</i>
+          <textarea id="description" type="text" class="materialize-textarea validate"></textarea>
+          <label for="description">Description</label>
+        </div>
+  
+        <div class="itemName input-field inline">
+          <i class="material-icons prefix">class</i>
+  
+          <select class="input-field" id="category">
+            <option value="" disabled selected>Choose a category</option>
+            <option>Automotive</option>
+            <option>Household</option>
+            <option>Decor</option>
+            <option>Apparel</option>
+            <option>Accessories</option>
+            <option>Technology</option>
+            <option>Pet</option>
+            <option>Random</option>
+          </select>
+        </div>
+  
+  
+        <form action="#" class="itemName">
+          <div class="file-field input-field">
+            <div class="btn yellow darken-3">
+              <span>Image</span>
+              <input id="fileButton" value="upload" type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate loadField" type="text">
+              <progress value="0" max="100" id="uploader">0%</progress>
+            </div>
+          </div>
+        </form>
+  
+        <button class="btn yellow darken-3" type="submit" name="action" id="createItem">Create
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+  </div>
+
   <!--  jquery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- axios package -->
@@ -122,9 +180,13 @@
     $(document).ready(function () {
       $('.sidenav').sidenav();
     })
+    $(document).ready(function () {
+        $('select').formSelect();
+      });
   </script>
 
   <script src="./js/myProfile.js"></script>
+  <script src="./js/sidebar.js"></script>
 </body>
 
 </html>

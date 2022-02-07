@@ -1,5 +1,4 @@
-const { Sequelize } = require('sequelize')
-const sequelize = new Sequelize(process.env.JAWSDB_URL || process.env.LOCAL_URL)
-
-module.exports = sequelize
-
+module.exports = require('mongoose').connect(process.env.MONGODB_URI || process.env.LOCAL_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})

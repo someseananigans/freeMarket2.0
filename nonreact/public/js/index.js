@@ -27,6 +27,13 @@ const instance3 = M.Modal.init(elem3, {
   outDuration: 300
 });
 
+const elem4 = document.getElementById('listingModal');
+const instance4 = M.Modal.init(elem4, {
+  dismissible: true,
+  inDuration: 300, // Transition in duration
+  outDuration: 300
+});
+
 document.getElementById('navbarSearch').addEventListener('input', event => {
   if (document.getElementById('navbarSearch').value) {
     axios.get(`/api/listings/search/${document.getElementById('navbarSearch').value.toLowerCase()}`)
@@ -86,7 +93,8 @@ document.querySelector("input")
 
 document.addEventListener('click', event => {
 
-  const pageCount = document.getElementById('pageNumber') && document.getElementById('pageNumber').dataset.pages
+  let pageCount = document.getElementById('pageNumber') && document.getElementById('pageNumber').dataset.pages
+  console.log(document.getElementById('pageNumber'))
   let currentPage = document.getElementById('pageNumber') && parseInt(document.getElementById('pageNumber').value.split(' ')[0])
 
   // open pagination modal
@@ -96,8 +104,8 @@ document.addEventListener('click', event => {
         <h5>Jump to page</h5>
         <input
         type="number"
-        max=${pageCount} 
-        min=1 x
+        max=${Math.ceil(pageCount)}
+        min=1
         value=${currentPage} 
         class="pageInput"
         id="modalInput"
@@ -117,7 +125,7 @@ document.addEventListener('click', event => {
     currentPage != page ? getListings(page) : instance3.close()
 
     currentPage = page
-    document.getElementById('pageNumber').value = `${currentPage} of ${pageCount}`
+    document.getElementById('pageNumber').value = `${currentPage} of ${Math.ceil(pageCount)}`
 
     document.getElementById('right').className = currentPage >= pageCount ? 'disabled' : 'waves-effect'
     document.getElementById('left').className = currentPage <= 1 ? 'disabled' : 'waves-effect'
@@ -132,7 +140,7 @@ document.addEventListener('click', event => {
   if (event.target.parentNode.id == 'right') {
     if (event.target.parentNode.className == 'waves-effect' && currentPage < pageCount) {
       currentPage++
-      document.getElementById('pageNumber').value = `${currentPage} of ${pageCount}`
+      document.getElementById('pageNumber').value = `${currentPage} of ${Math.ceil(pageCount)}`
       getListings(currentPage)
     }
   }
@@ -141,7 +149,7 @@ document.addEventListener('click', event => {
   if (event.target.parentNode.id == 'left') {
     if (event.target.parentNode.className == 'waves-effect' && currentPage > 0) {
       currentPage--
-      document.getElementById('pageNumber').value = `${currentPage} of ${pageCount}`
+      document.getElementById('pageNumber').value = `${currentPage} of ${Math.ceil(pageCount)}`
       getListings(currentPage)
     }
   }
@@ -189,6 +197,11 @@ document.addEventListener('click', event => {
   if ((event.target.classList.contains('signOut')) && (localStorage.getItem('token'))) {
     localStorage.removeItem('token')
     window.location = './index'
+  }
+
+  // create Listing
+  if ((event.target.classList.contains('createListing')) && (localStorage.getItem('token'))) {
+    instance4.open()
   }
 
   let id = ''
@@ -281,3 +294,4 @@ document.addEventListener('click', event => {
   //   // window.location = './login'
   // }
 })
+

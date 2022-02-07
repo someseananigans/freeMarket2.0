@@ -20,10 +20,18 @@
 
 /* Side Nav Start */
 
-.dropdown-content {
+/* .dropdown-content {
   top: 65px !important;
   width: 140px !important;
   text-align-last: center !important;
+} */
+
+#navList {
+  width: 150px !important;
+  /* left: 918px !important; */
+  top: 65px !important;
+  text-align-last: center !important;
+  height: fit-content !important;
 }
 
 .dropdown-content li>a, .dropdown-content li>span nav .input-field {
@@ -49,12 +57,23 @@ nav {
   color: #1e88e5;
   font-size: 18px;
   /* margin-top: 10px; */
-  text-align: center;
+  /* text-align: center; */
   /* vertical-align: middle; */
+  line-height: 48px;
+  float:left;
 }
 
 .sidenav .row {
   margin-bottom: 0;
+}
+
+.sidenav-trigger {
+  cursor: pointer;
+}
+
+.sidenav {
+  width: 250px;
+  padding: 15px !important;
 }
 
 .navbar-fixed {

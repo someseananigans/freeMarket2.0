@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Styling Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Font Packages -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <!-- CSS Styling -->
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/navbar.css">
+  
+  <title>Free Market</title>
+</head>
+<body>
+  <div class="container-fluid">
+
+    <!-- NavBar -->
+    <div class="navbar-fixed">
+      <nav class="blue darken-1">
+        <!-- SideNAv -->
+        <a data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+        <!-- sidenav- -->
+        <ul id="slide-out" class="sidenav">
+          <div class="collection-item filter waves-effect waves-orange">Home</div>
+          <div class="collection-item filter waves-effect waves-orange">Create Listing</div>
+          <div class="collection-item filter waves-effect waves-orange">
+            <ul class="collapsible expandable">
+              <li>
+                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Account</div>
+                <div class="collapsible-body">
+                  <div>Profile</div>
+                  <div>My Listings</div>
+                  <div>Log Out</div>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Search</div>
+                <div class="collapsible-body">
+                  <div class="filter waves-effect waves-orange" id="automotive">Automotive</div>
+                  <div class="filter waves-effect waves-orange" id="household">Household</div>
+                  <div class="filter waves-effect waves-orange" id="decor">Decor</div>
+                  <div class="filter waves-effect waves-orange" id="apparel">Apparel</div>
+                  <div class="filter waves-effect waves-orange" id="accessories">Accessories</div>
+                  <div class="filter waves-effect waves-orange" id="technology">Technology</div>
+                  <div class="filter waves-effect waves-orange" id="pet">Pet</div>
+                  <div class="filter waves-effect waves-orange" id="random">Random</div>
+                  <div class="filter ">
+                    <div class="input-field white" style="display: flex; justify-content: center;">
+                      <input type="search" id="sidebarSearch" placeholder="Search Listings"
+                        style="width: 200px; height: 30px; padding-top: 10px;">
+                      <i class="material-icons" style="color: #1e88e5;">search</i>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+     
+        </ul>
+
+        <!-- MainNav -->
+          <a href="./index" class="brand-logo center"><img src="./freeMarketLogo.png" class="logo">
+          </a>
+          <ul class="right" id="navListMain">
+            <li class="search">
+              <div class="input-field hide-on-small-only">
+                <input type="search" id="navbarSearch" placeholder="Search Listings" class="blue darken-1"
+                  style="margin-left: 2rem; width: 150px; height: 30px; padding-top: 10px; margin-top: 4px;">
+                <label class="label-icon" for="search" style="left: 0rem;"><i class="material-icons">search</i></label>
+              </div>
+            </li>
+            <li>
+              <a class='dropdown-trigger hide-on-small-only' href='#' data-target='navList'><i class="material-icons"
+                  style="color: white; margin-top: 3px;">arrow_drop_down</i></a>
+              <ul id='navList' class='dropdown-content'>
+                <!-- content varies on user permissions -->
+              </ul>
+            </li>
+          </ul>
+      </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="spiel">
+      <p>Some things don't need to be tossed,</p>
+      <p>they just need new owners.</p>
+      <!-- <p>From cars to lamps find something that speaks to you and thrift shop online with Free Market.</p> -->
+    </header>
+
+    <!-- Listings -->
+    <!-- Space 1 -->
+    <div class="container listing">
+      <div class="col s9 l9">
+        <div class="spaceHead" id="spaceOne">
+          <h3 class="headLine">Recent Listings</h3>
+          <ul class="pagination" id="pages"></ul>
+        </div>
+        <div class="row" id="listings">
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Structure -->
+    <div id="cardModal" class="modal itemModal">
+      <div class="modal-content" id="listFull"></div>
+      <div class="modal-footer"></div>
+    </div>
+
+    <div id="listingModal" class="modal itemModal">
+      <!-- <div class="modal-content" id="listFull"> -->
+        <!-- <div class="container" id='profileTools'> -->
+          <div id="items" class="col">
+            <h1 style="text-align: center; font-weight: 100; color: #1e88e5; margin: 10px;">New Listing</h1>
+            <div class="card-panel">
+        
+              <div class="itemName input-field">
+                <i class="material-icons prefix">title</i>
+                <input id="title" type="text" class="validate">
+                <label for="item">Title</label>
+              </div>
+        
+              <div class="itemName input-field">
+                <i class="material-icons prefix">description</i>
+                <textarea id="description" type="text" class="materialize-textarea validate"></textarea>
+                <label for="description">Description</label>
+              </div>
+        
+              <div class="itemName input-field inline">
+                <i class="material-icons prefix">class</i>
+        
+                <select class="input-field" id="category">
+                  <option value="" disabled selected>Choose a category</option>
+                  <option>Automotive</option>
+                  <option>Household</option>
+                  <option>Decor</option>
+                  <option>Apparel</option>
+                  <option>Accessories</option>
+                  <option>Technology</option>
+                  <option>Pet</option>
+                  <option>Random</option>
+                </select>
+              </div>
+        
+        
+              <form action="#" class="itemName">
+                <div class="file-field input-field">
+                  <div class="btn yellow darken-3">
+                    <span>Image</span>
+                    <input id="fileButton" value="upload" type="file">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate loadField" type="text">
+                    <progress value="0" max="100" id="uploader">0%</progress>
+                  </div>
+                </div>
+              </form>
+        
+              <button class="btn yellow darken-3" type="submit" name="action" id="createItem">Create
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        <!-- </div> -->
+      <!-- </div> -->
+    </div>
+    
+    
+    <div id="lockedModal" class="modal itemModal">
+      <div class="modal-content" id="userLocked"></div>
+      <div class="modal-footer"></div>
+    </div>
+
+    <div id="pageModal" class="modal itemModal"></div>
+
+
+    <!-- footer -->
+    <footer class="footer-copyright">
+      <p id="footerContent"> © Developed by Sean Nguyen, Joseph Nielsen, and Kyle Ohlwiler</p>
+    </footer>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+
+  <script src="js/createListing.js"></script>
+  <script src="js/loadUtil.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+    // opens modal
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     var elems = document.querySelectorAll('.modal');
+    //     var instances = M.Modal.init(elems, {});
+    //     console.log(instances)
+    //   })
+
+    // opens drop down on left
+    $(document).ready(function () {
+        $('select').formSelect();
+      });
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+      })
+    $('.dropdown-trigger').dropdown();
+
+
+    var elem12 = document.querySelector('.collapsible.expandable');
+    var instance12 = M.Collapsible.init(elem12, {
+      accordion: false
+    });
+  </script>
+
+
+
+</body>
+</html>

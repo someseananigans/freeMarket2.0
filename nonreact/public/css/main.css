@@ -162,7 +162,135 @@ body {
 
 /* Listings End */
 
+/* Login Start */
+
+.connect {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+h5 {
+  color: white;
+}
+
+.headSpace {
+  /* background-color: lightcoral; */
+  font-weight: 100;
+  padding: 10px;
+  margin-top: 20px;
+  color: rgb(4, 131, 110);
+}
+
+/* Login end */
+
+/* input start */
+
+#items {
+  text-align: center;
+  /* min-height: 650px; */
+}
+
+.card-panel {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  /* margin-bottom: 55px; */
+}
+
+.card-panel .row {
+  margin-bottom: -5px;
+}
+
+#items .card-panel {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.itemName {
+  width: 90% !important;
+  float: none !important;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 35px !important;
+  margin-bottom: 2px;
+}
+
+#invalid {
+  margin-top: -20px;
+  margin-bottom: 20px
+}
+
+.invalid {
+  border-bottom: #f44336
+}
+
+.input-field p, .input-field .select-wrapper {
+  display: inline-block;
+  clear: both;
+  float: none;
+}
+
+.loadField {
+  margin-bottom: -6px !important;
+}
+
+.select-wrapper .dropdown-content {
+  width: 300px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  height: min-content !important;
+  top: -35px !important;
+  left: 180px !important;
+  margin-bottom: 0px !important;
+}
+
+.select-wrapper .dropdown-content li {
+  width: 50%;
+  height: min-content;
+}
+
+.waves-effect {
+  width: 100% !important;
+}
+
+progress {
+  width: 100%;
+  -webkit-appearance: none;
+  border-radius: 20px;
+}
+
+::-webkit-progress-value {
+  background-color: rgb(36, 165, 133);
+  border-radius: 20px;
+}
+
+::-webkit-progress-bar {
+  background-color: gainsboro;
+  height: 6px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+/* input end */
+
 /* Media Queries */
+
+@media (max-width: 700px) {
+  #items .card-panel {
+    width: 95%;
+  }
+}
 
 @media only screen and (max-width: 992px) {
   .listing {
@@ -189,7 +317,11 @@ body {
   .spiel {
     height: 170px;
   }
+  .connect {
+    width: 80%;
+  }
 }
+
 
 @media only screen and (min-width: 1200px) {
   #profileTools {
@@ -200,6 +332,13 @@ body {
 @media only screen and (max-width: 993px) {
   #profileTools {
     width: 75% !important;
+  }
+}
+
+@media only screen and (max-width:600px) {
+  .itemName {
+    width: 100% !important;
+    padding-right: 25px !important;
   }
 }
 
@@ -220,3 +359,59 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* modal start */
+
+.modal {
+  height: min-content;
+  width: min-content;
+  min-width: 500px;
+}
+
+/* modal end */
+
+/* misc */
+
+.info {
+  background: lightblue;
+  height: 140px;
+}
+
+.sidebar {
+  height: 500px;
+}
+
+/* my listings start */
+
+.cardItem {
+  height: 270px;
+  width: 235px !important;
+  display: flex;
+  flex-direction: column;
+  place-content: space-between;
+}
+
+.yellow {
+  margin-top: 10px;
+  flex: 1;
+}
+
+.myListingsBtn {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 7px;
+}
+
+.editPost {
+  width: 95px;
+}
+
+.deletePost {
+  width: 95px;
+}
+
+.listingTitle {
+  padding-top: 4px;
+}
+
+/* my listings end */
