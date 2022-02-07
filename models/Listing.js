@@ -12,7 +12,7 @@ const ListingSchema = new Schema({
     required: true
   },
   photos: {
-    type: String,
+    type: [String],
     required: true
   },
   description: String,
@@ -21,6 +21,7 @@ const ListingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'category'
   },
+  brand: String,
   condition: {
     type: String,
     required: true
